@@ -5,7 +5,6 @@ import B from 'bluebird';
 import path from 'path';
 import fs from 'fs';
 import fileType from 'file-type';
-//import * as support from 'appium-support';
 
 chai.should();
 chai.use(chaiAsPromised);
@@ -16,7 +15,6 @@ describe('Scrcpy Class', function () {
   fs.mkdirSync(testOutputFolder, { recursive: true });
   it('should find path to scrcpy', async function () {
     const path = await scrcpy.getScrcpyBinaryPath();
-    // How to assert this for all possible OS's?
     path.should.eql('/usr/local/bin/scrcpy');
   });
   it('should throw error if device udid is not provided', async function () {
