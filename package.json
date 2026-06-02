@@ -2,43 +2,42 @@
   "name": "node-scrcpy",
   "version": "1.0.0",
   "description": "A node wrapper around scrcpy",
-  "main": "./build/lib/index.js",
+  "type": "module",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js"
+  },
   "directories": {
     "lib": "./lib"
   },
   "files": [
-    "lib",
-    "build/lib"
+    "lib"
   ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
-    "clean": "rm -rf node_modules && rm -f package-lock.json && npm install",
-    "prepare": "gulp prepublish",
-    "test": "gulp once",
-    "watch": "gulp watch",
-    "build": "gulp transpile",
-    "e2e-test": "gulp e2e-test",
-    "mocha": "mocha",
-    "coverage": "gulp coveralls",
-    "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
-    "lint": "gulp lint",
-    "lint:fix": "gulp eslint --fix"
+    "test": "mocha",
+    "lint": "eslint lib test",
+    "lint:fix": "eslint lib test --fix"
   },
   "author": "Gabriel Fioretti",
   "license": "Apache-2.0",
   "dependencies": {
-    "@babel/runtime": "^7.10.2",
-    "appium-support": "^2.47.1",
-    "asyncbox": "^2.6.0",
-    "teen_process": "^1.15.0"
+    "teen_process": "^1.15.0",
+    "which": "^4.0.0"
   },
   "devDependencies": {
-    "appium-gulp-plugins": "^5.3.1",
-    "bluebird": "^3.7.2",
-    "chai": "^4.2.0",
-    "chai-as-promised": "^7.1.1",
-    "es6-promise": "^4.2.8",
-    "file-type": "^14.6.2",
-    "gulp": "^4.0.2",
-    "mocha": "^7.2.0"
+    "@eslint/js": "^9.0.0",
+    "chai": "^4.4.1",
+    "chai-as-promised": "^7.1.2",
+    "eslint": "^9.0.0",
+    "file-type": "^22.0.0",
+    "globals": "^17.6.0",
+    "mocha": "^11.0.0"
+  },
+  "mocha": {
+    "spec": "test/**/*.js",
+    "timeout": 30000
   }
 }
