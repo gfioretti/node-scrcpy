@@ -18,6 +18,11 @@ export interface ScrcpyOptions {
   pathToFile?: string;
 }
 
+interface Deps {
+  which: (cmd: string) => Promise<string>;
+  createProcess: (cmd: string, args: string[]) => SubProcess;
+}
+
 function isRecordFormat(val: string): val is RecordFormat {
   return (VALID_RECORD_FORMATS as readonly string[]).includes(val);
 }
@@ -29,11 +34,20 @@ function isRenderDriver(val: string): val is RenderDriver {
 class Scrcpy {
   private scrcpyPath?: string;
   recordFormat: RecordFormat = 'mp4';
+  private readonly deps: Deps;
+
+  constructor(deps: Partial<Deps> = {}) {
+    this.deps = {
+      which: (cmd) => which(cmd),
+      createProcess: (cmd, args) => new SubProcess(cmd, args),
+      ...deps,
+    };
+  }
 
   async getScrcpyBinaryPath(): Promise<string> {
     if (!this.scrcpyPath) {
       try {
-        this.scrcpyPath = await which('scrcpy');
+        this.scrcpyPath = await this.deps.which('scrcpy');
       } catch {
         throw new Error(`Can't find Scrcpy in PATH. Please verify if you have Scrcpy installed.`);
       }
@@ -82,7 +96,7 @@ class Scrcpy {
     }
 
     log.info(`Starting new scrcpy process with command ${cmd.join(' ')}`);
-    return new SubProcess(scrcpyPath, cmd);
+    return this.deps.createProcess(scrcpyPath, cmd);
   }
 }
 
