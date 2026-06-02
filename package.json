@@ -3,21 +3,26 @@
   "version": "1.0.0",
   "description": "A node wrapper around scrcpy",
   "type": "module",
-  "main": "./lib/index.js",
+  "main": "./build/lib/index.js",
+  "types": "./build/lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js"
+    ".": {
+      "types": "./build/lib/index.d.ts",
+      "default": "./build/lib/index.js"
+    }
   },
   "directories": {
     "lib": "./lib"
   },
   "files": [
-    "lib"
+    "build/lib"
   ],
   "engines": {
     "node": ">=20.0.0"
   },
   "scripts": {
-    "test": "mocha",
+    "build": "tsc",
+    "test": "tsc && mocha",
     "lint": "eslint lib test",
     "lint:fix": "eslint lib test --fix"
   },
@@ -29,15 +34,21 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.0.0",
+    "@types/chai": "^5.2.3",
+    "@types/chai-as-promised": "^8.0.2",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.19.19",
     "chai": "^4.4.1",
     "chai-as-promised": "^7.1.2",
     "eslint": "^9.0.0",
     "file-type": "^22.0.0",
     "globals": "^17.6.0",
-    "mocha": "^11.0.0"
+    "mocha": "^11.0.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.60.1"
   },
   "mocha": {
-    "spec": "test/**/*.js",
+    "spec": "build/test/**/*.js",
     "timeout": 30000
   }
 }

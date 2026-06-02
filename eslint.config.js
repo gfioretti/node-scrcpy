@@ -1,20 +1,17 @@
 import js from '@eslint/js';
 import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
-export default [
+export default tseslint.config(
   js.configs.recommended,
+  ...tseslint.configs.recommended,
   {
     languageOptions: {
-      globals: {
-        ...globals.node,
-      },
-    },
-    rules: {
-      'no-unused-vars': 'warn',
+      globals: globals.node,
     },
   },
   {
-    files: ['test/**/*.js'],
+    files: ['test/**/*.ts'],
     languageOptions: {
       globals: {
         ...globals.node,
@@ -22,4 +19,4 @@ export default [
       },
     },
   },
-];
+);
