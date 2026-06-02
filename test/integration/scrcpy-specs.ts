@@ -11,6 +11,11 @@ const delay = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve,
 
 describe('Scrcpy Class (integration)', function () {
   const scrcpy = new Scrcpy();
+
+  it('should find path to scrcpy', async function () {
+    const binaryPath = await scrcpy.getScrcpyBinaryPath();
+    expect(binaryPath).to.be.a('string').and.to.include('scrcpy');
+  });
   const testOutputFolder = path.resolve(import.meta.dirname, 'test-output');
   fs.mkdirSync(testOutputFolder, { recursive: true });
 
