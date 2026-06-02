@@ -23,6 +23,7 @@
   "scripts": {
     "build": "tsc",
     "test": "tsc && mocha",
+    "test:integration": "tsc && mocha 'build/test/integration/**/*.js'",
     "lint": "eslint lib test",
     "lint:fix": "eslint lib test --fix"
   },
@@ -48,7 +49,7 @@
     "typescript-eslint": "^8.60.1"
   },
   "mocha": {
-    "spec": "build/test/**/*.js",
+    "spec": "build/test/unit/**/*.js",
     "timeout": 30000
   }
 }
