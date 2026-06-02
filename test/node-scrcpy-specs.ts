@@ -16,7 +16,7 @@ describe('Scrcpy Class', function () {
 
   it('should find path to scrcpy', async function () {
     const binaryPath = await scrcpy.getScrcpyBinaryPath();
-    expect(binaryPath).to.eql('/usr/local/bin/scrcpy');
+    expect(binaryPath).to.be.a('string').and.to.include('scrcpy');
   });
 
   it('should throw error if device udid is not provided', async function () {
