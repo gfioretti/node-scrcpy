@@ -1,6 +1,6 @@
 import { expect, use } from 'chai';
 import chaiAsPromised from 'chai-as-promised';
-import { Scrcpy, ScrcpyOptions } from '../../lib/index.js';
+import { Scrcpy } from '../../lib/index.js';
 import { SubProcess } from 'teen_process';
 
 use(chaiAsPromised);
